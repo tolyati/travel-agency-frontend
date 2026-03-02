@@ -13,6 +13,7 @@ const pages = [
   "support"
 ];
 
+
 export default function TravelApp() {
   const [page, setPage] = useState("home");
 
@@ -37,7 +38,7 @@ const prevSlide = () => {
 useEffect(() => {
   const interval = setInterval(() => {
     nextSlide();
-  }, 5000); // change picture every 5 sec
+  }, 5000); 
 
   return () => clearInterval(interval);
 }, []);
@@ -48,7 +49,6 @@ useEffect(() => {
         return (
           <div className="space-y-10 animate-fadeIn">
 
-  {/* Carousel */}
   <div className="relative rounded-3xl overflow-hidden border border-zinc-800">
 
     <img
@@ -56,7 +56,6 @@ useEffect(() => {
       className="w-full h-125 object-cover transition-all duration-700 ease-in-out"
     />
 
-    {/* Left Arrow */}
     <button
       onClick={prevSlide}
       className="absolute left-5 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-purple-500/70 text-white p-3 rounded-full transition"
@@ -64,7 +63,7 @@ useEffect(() => {
       ◀
     </button>
 
-    {/* Right Arrow */}
+    
     <button
       onClick={nextSlide}
       className="absolute right-5 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-purple-500/70 text-white p-3 rounded-full transition"
@@ -72,7 +71,7 @@ useEffect(() => {
       ▶
     </button>
 
-    {/* Text Overlay */}
+ 
     <div className="absolute bottom-10 left-10 text-white">
       <h1 className="text-4xl font-bold text-purple-300">
         Travel Aesthetic
@@ -83,7 +82,7 @@ useEffect(() => {
     </div>
   </div>
 
-  {/* Cards Row (same as before) */}
+
   <div className="grid md:grid-cols-3 gap-6">
     {[
       {
@@ -273,7 +272,6 @@ useEffect(() => {
 
   return (
     <div className="bg-black min-h-screen text-gray-300 font-sans">
-      {/* Navbar */}
       <header className="fixed top-0 w-full backdrop-blur-xl bg-black/80 border-b border-zinc-800 z-50">
         <nav className="container mx-auto flex flex-wrap justify-center gap-2 p-4 text-xs uppercase font-semibold">
           {pages.map((p) => (
@@ -310,7 +308,7 @@ useEffect(() => {
         </nav>
       </header>
 
-      {/* Page Content */}
+     
       <main className="container mx-auto px-6 pt-32 pb-20">
         {renderPage()}
       </main>
