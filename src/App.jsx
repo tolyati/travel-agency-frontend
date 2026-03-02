@@ -13,7 +13,6 @@ const pages = [
   "support"
 ];
 
-
 export default function TravelApp() {
   const [page, setPage] = useState("home");
 
