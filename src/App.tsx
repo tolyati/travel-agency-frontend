@@ -8,7 +8,7 @@ import Food from "./pages/Food";
 import Relax from "./pages/Relax";
 import Hotels from "./pages/Hotels";
 import Sights from "./pages/Sights";
-import Popular from "./pages/Popular";
+import Partners from "./pages/Partners";
 import Faq from "./pages/Faq";
 import Support from "./pages/Support";
 import type { Page, PageProps } from "./types";
@@ -17,7 +17,7 @@ import type { ComponentType } from "react";
 const pageMap: Record<Page, ComponentType<PageProps>> = {
   home: Home, about: About, travel: Travel, food: Food,
   relax: Relax, hotels: Hotels, sights: Sights,
-  popular: Popular, faq: Faq, support: Support
+  partners: Partners, faq: Faq, support: Support
 };
 
 export default function TravelApp() {
