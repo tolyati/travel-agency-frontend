@@ -1,19 +1,25 @@
 import { useState, useEffect } from "react";
 
-const slides = [
+type Page = "home" | "about" | "travel" | "food" | "relax" | "hotels" | "sights" | "popular" | "faq" | "support";
+
+interface HomeProps {
+  setPage: (p: Page) => void;
+}
+
+const slides: string[] = [
   "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
   "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
   "https://images.unsplash.com/photo-1566073771259-6a8506099945"
 ];
 
-const cards = [
+const cards: { title: string; img: string; page: Page }[] = [
   { title: "Приключения", img: slides[0], page: "travel" },
   { title: "Еда", img: slides[1], page: "food" },
   { title: "Отели", img: slides[2], page: "hotels" }
 ];
 
-export default function Home({ setPage }) {
-  const [slideIndex, setSlideIndex] = useState(0);
+export default function Home({ setPage }: HomeProps) {
+  const [slideIndex, setSlideIndex] = useState<number>(0);
 
   const nextSlide = () => setSlideIndex((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setSlideIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));

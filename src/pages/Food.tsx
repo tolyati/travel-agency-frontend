@@ -1,4 +1,8 @@
-export default function Food() {
+interface FoodProps {
+  setPage: (p: string) => void;
+}
+
+export default function Food(_: FoodProps) {
   return (
     <div className="grid md:grid-cols-2 gap-8 animate-fadeIn">
       <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4" className="rounded-2xl" />

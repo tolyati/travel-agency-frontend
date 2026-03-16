@@ -1,4 +1,8 @@
-export default function Sights() {
+interface SightsProps {
+  setPage: (p: string) => void;
+}
+
+export default function Sights(_: SightsProps) {
   return (
     <div className="space-y-6 animate-fadeIn">
       <h1 className="text-3xl text-purple-400">Архитектура</h1>

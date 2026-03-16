@@ -1,4 +1,8 @@
-export default function Support() {
+interface SupportProps {
+  setPage: (p: string) => void;
+}
+
+export default function Support(_: SupportProps) {
   return (
     <div className="text-center border border-zinc-800 rounded-3xl p-12 space-y-5 animate-fadeIn">
       <p className="text-gray-300">📞 8 (800) 555-35-35</p>

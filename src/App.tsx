@@ -12,14 +12,16 @@ import Popular from "./pages/Popular";
 import Faq from "./pages/Faq";
 import Support from "./pages/Support";
 
-const pageMap = {
+type Page = "home" | "about" | "travel" | "food" | "relax" | "hotels" | "sights" | "popular" | "faq" | "support";
+
+const pageMap: Record<Page, React.ComponentType<{ setPage: (p: Page) => void }>> = {
   home: Home, about: About, travel: Travel, food: Food,
   relax: Relax, hotels: Hotels, sights: Sights,
   popular: Popular, faq: Faq, support: Support
 };
 
 export default function TravelApp() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState<Page>("home");
   const PageComponent = pageMap[page];
 
   return (

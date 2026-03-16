@@ -1,4 +1,8 @@
-export default function About() {
+interface AboutProps {
+  setPage: (p: string) => void;
+}
+
+export default function About(_: AboutProps) {
   return (
     <div className="grid md:grid-cols-2 gap-8 items-center animate-fadeIn">
       <div>
