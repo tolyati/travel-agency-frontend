@@ -3,7 +3,7 @@ import type { Page } from "../types";
 const labels: Record<Page, string> = {
   home: "Главная", about: "О нас", travel: "Путешествия",
   food: "Еда", relax: "Отдых", hotels: "Отели",
-  sights: "Места", popular: "Популярное", faq: "FAQ", support: "Поддержка"
+  sights: "Места", partners: "Партнеры", faq: "FAQ", support: "Поддержка"
 };
 
 const pages = Object.keys(labels) as Page[];

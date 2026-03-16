@@ -19,7 +19,7 @@ const categoryLabels: Record<string, string> = {
 
 const categories = Object.keys(categoryLabels);
 
-export default function Popular(_: PageProps) {
+export default function Partners(_: PageProps) {
   const { products, loading, error } = useFetchProducts();
   const [activeCategory, setActiveCategory] = useState<string | null>("all");
   const [likedIds, setLikedIds] = useState<Set<number>>(new Set());

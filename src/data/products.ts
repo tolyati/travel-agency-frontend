@@ -98,5 +98,14 @@ export const foods: FoodItem[] = [
     img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35",
     price: 5,
     likes: 88
-  }
+  },
+  {
+    id: 11,
+    name: "Пахлава",
+    country: "Турция",
+    description: "восточная сладость в виде пропитанного маслом и сиропом слоёного пирога с начинкой из растёртых орехов, сахара и кардамона. .",
+    img: "https://i.ytimg.com/vi/RuantDwo5Jg/maxresdefault.jpg",
+    price: 6,
+    likes: 100
+  },
 ];
