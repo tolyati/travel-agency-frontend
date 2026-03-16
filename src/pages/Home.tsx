@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
-
-type Page = "home" | "about" | "travel" | "food" | "relax" | "hotels" | "sights" | "popular" | "faq" | "support";
-
-interface HomeProps {
-  setPage: (p: Page) => void;
-}
+import type { PageProps, Page } from "../types";
 
 const slides: string[] = [
   "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
@@ -18,7 +13,7 @@ const cards: { title: string; img: string; page: Page }[] = [
   { title: "Отели", img: slides[2], page: "hotels" }
 ];
 
-export default function Home({ setPage }: HomeProps) {
+export default function Home({ setPage }: PageProps) {
   const [slideIndex, setSlideIndex] = useState<number>(0);
 
   const nextSlide = () => setSlideIndex((prev) => (prev + 1) % slides.length);
@@ -31,13 +26,48 @@ export default function Home({ setPage }: HomeProps) {
 
   return (
     <div className="space-y-10 animate-fadeIn">
-      <div className="relative rounded-3xl overflow-hidden border border-zinc-800">
-        <img src={slides[slideIndex]} className="w-full h-125 object-cover transition-all duration-700 ease-in-out" />
-        <button onClick={prevSlide} className="absolute left-5 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-purple-500/70 text-white p-3 rounded-full transition">◀</button>
-        <button onClick={nextSlide} className="absolute right-5 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-purple-500/70 text-white p-3 rounded-full transition">▶</button>
-        <div className="absolute bottom-10 left-10 text-white">
+      <div className="relative rounded-3xl overflow-hidden border border-zinc-800 group">
+        <div className="relative w-full h-96 overflow-hidden">
+          {slides.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
+                i === slideIndex ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/10 hover:bg-purple-500/50 backdrop-blur-sm text-white/80 hover:text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-purple-400"
+        >
+          ‹
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/10 hover:bg-purple-500/50 backdrop-blur-sm text-white/80 hover:text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-purple-400"
+        >
+          ›
+        </button>
+
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
+        <div className="absolute bottom-8 left-10 text-white">
           <h1 className="text-4xl font-bold text-purple-300">Travel Aesthetic</h1>
           <p className="text-gray-300 mt-2">My First Tailwind React Page</p>
+        </div>
+
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setSlideIndex(i)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                i === slideIndex ? "bg-purple-400 w-6" : "bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
         </div>
       </div>
 

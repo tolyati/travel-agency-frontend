@@ -1,8 +1,6 @@
-interface SightsProps {
-  setPage: (p: string) => void;
-}
+import type { PageProps } from "../types";
 
-export default function Sights(_: SightsProps) {
+export default function Sights(_: PageProps) {
   return (
     <div className="space-y-6 animate-fadeIn">
       <h1 className="text-3xl text-purple-400">Архитектура</h1>

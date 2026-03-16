@@ -1,0 +1,80 @@
+export interface FoodItem {
+  id: number;
+  name: string;
+  country: string;
+  description: string;
+  img: string;
+}
+
+export const foods: FoodItem[] = [
+  {
+    id: 1,
+    name: "Суши",
+    country: "Япония",
+    description: "Традиционное японское блюдо из риса с рыбой и морепродуктами.",
+    img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c"
+  },
+  {
+    id: 2,
+    name: "Пицца Маргарита",
+    country: "Италия",
+    description: "Классическая итальянская пицца с томатным соусом, моцареллой и базиликом.",
+    img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002"
+  },
+  {
+    id: 3,
+    name: "Тако",
+    country: "Мексика",
+    description: "Мексиканская лепёшка с мясом, сальсой, авокадо и кинзой.",
+    img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47"
+  },
+  {
+    id: 4,
+    name: "Круассан",
+    country: "Франция",
+    description: "Слоёная выпечка с хрустящей корочкой — символ французского завтрака.",
+    img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a"
+  },
+  {
+    id: 5,
+    name: "Пад Тай",
+    country: "Таиланд",
+    description: "Жареная рисовая лапша с креветками, арахисом и соусом тамаринд.",
+    img: "https://images.unsplash.com/photo-1559314809-0d155014e29e"
+  },
+  {
+    id: 6,
+    name: "Бургер",
+    country: "США",
+    description: "Сочная говяжья котлета с овощами и соусом в поджаренной булочке.",
+    img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd"
+  },
+  {
+    id: 7,
+    name: "Шаурма",
+    country: "Турция",
+    description: "Мясо на вертеле, завёрнутое в лаваш с овощами и соусом.",
+    img: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783"
+  },
+  {
+    id: 8,
+    name: "Димсам",
+    country: "Китай",
+    description: "Маленькие паровые пельмени с различными начинками из мяса и овощей.",
+    img: "https://images.unsplash.com/photo-1563245372-f21724e3856d"
+  },
+  {
+    id: 9,
+    name: "Карри",
+    country: "Индия",
+    description: "Ароматное блюдо из овощей или мяса в густом пряном соусе.",
+    img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe"
+  },
+  {
+    id: 10,
+    name: "Пастель де Ната",
+    country: "Португалия",
+    description: "Нежный заварной тарт в слоёном тесте с корицей и сахарной пудрой.",
+    img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35"
+  }
+];
