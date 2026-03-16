@@ -1,4 +1,4 @@
-type Page = "home" | "about" | "travel" | "food" | "relax" | "hotels" | "sights" | "popular" | "faq" | "support";
+import type { Page } from "../types";
 
 const labels: Record<Page, string> = {
   home: "Главная", about: "О нас", travel: "Путешествия",

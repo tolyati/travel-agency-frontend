@@ -1,8 +1,6 @@
-interface RelaxProps {
-  setPage: (p: string) => void;
-}
+import type { PageProps } from "../types";
 
-export default function Relax(_: RelaxProps) {
+export default function Relax(_: PageProps) {
   return (
     <div className="text-center space-y-6 animate-fadeIn">
       <h1 className="text-3xl text-purple-400">Релакс и SPA</h1>

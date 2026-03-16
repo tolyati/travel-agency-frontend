@@ -1,6 +1,4 @@
-interface FaqProps {
-  setPage: (p: string) => void;
-}
+import type { PageProps } from "../types";
 
 interface FaqItem {
   q: string;
@@ -12,7 +10,7 @@ const items: FaqItem[] = [
   { q: "Что такое CSS?", a: "Язык стилизации веб страниц." }
 ];
 
-export default function Faq(_: FaqProps) {
+export default function Faq(_: PageProps) {
   return (
     <div className="space-y-4 animate-fadeIn">
       {items.map((item, i) => (

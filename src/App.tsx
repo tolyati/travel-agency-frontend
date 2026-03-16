@@ -11,10 +11,10 @@ import Sights from "./pages/Sights";
 import Popular from "./pages/Popular";
 import Faq from "./pages/Faq";
 import Support from "./pages/Support";
+import type { Page, PageProps } from "./types";
+import type { ComponentType } from "react";
 
-type Page = "home" | "about" | "travel" | "food" | "relax" | "hotels" | "sights" | "popular" | "faq" | "support";
-
-const pageMap: Record<Page, React.ComponentType<{ setPage: (p: Page) => void }>> = {
+const pageMap: Record<Page, ComponentType<PageProps>> = {
   home: Home, about: About, travel: Travel, food: Food,
   relax: Relax, hotels: Hotels, sights: Sights,
   popular: Popular, faq: Faq, support: Support

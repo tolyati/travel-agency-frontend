@@ -1,8 +1,6 @@
-interface HotelsProps {
-  setPage: (p: string) => void;
-}
+import type { PageProps } from "../types";
 
-export default function Hotels(_: HotelsProps) {
+export default function Hotels(_: PageProps) {
   return (
     <div className="space-y-6 animate-fadeIn">
       <h1 className="text-3xl text-purple-400">Бутик-Отели</h1>
