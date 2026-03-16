@@ -1,9 +1,18 @@
-const items = [
+interface FaqProps {
+  setPage: (p: string) => void;
+}
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+const items: FaqItem[] = [
   { q: "Что такое HTML?", a: "HTML — основа создания веб сайтов." },
   { q: "Что такое CSS?", a: "Язык стилизации веб страниц." }
 ];
 
-export default function Faq() {
+export default function Faq(_: FaqProps) {
   return (
     <div className="space-y-4 animate-fadeIn">
       {items.map((item, i) => (

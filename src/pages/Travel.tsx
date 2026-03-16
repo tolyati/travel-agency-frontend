@@ -1,4 +1,8 @@
-export default function Travel() {
+interface TravelProps {
+  setPage: (p: string) => void;
+}
+
+export default function Travel(_: TravelProps) {
   return (
     <div className="space-y-6 animate-fadeIn">
       <h1 className="text-3xl text-purple-400">Путешествия</h1>
