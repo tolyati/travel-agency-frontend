@@ -76,7 +76,7 @@ export default function Food(_: PageProps) {
         title="Путешествуй через вкус"
         subtitle="10 блюд из самых популярных стран мира"
       />
-      <SearchBar value={search} onChange={setSearch} />
+      <SearchBar value={search} onChange={setSearch} placeholder="Поиск блюда..." />
       <FilterButtons countries={countries} active={activeCountry} onSelect={handleFilterSelect} likeCount={likedIds.size} />
       <ProductList
         items={filtered}
