@@ -7,10 +7,10 @@ const slides: string[] = [
   "https://assets.hiltonstatic.com/hilton-asset-cache/image/upload/c_fill,w_1920,h_1080,q_70,f_auto,g_auto/Imagery/Property%20Photography/Canopy/S/SEZMAPY/compressed_HR__DJI_20240620172221_0048_D_PHOTO_drone__.jpg"
 ];
 
-const cards: { title: string; img: string; page: Page }[] = [
-  { title: "Приключения", img: slides[0], page: "travel" },
-  { title: "Еда", img: slides[1], page: "food" },
-  { title: "Отели", img: slides[2], page: "hotels" }
+const cards: { title: string; subtitle: string; img: string; page: Page }[] = [
+  { title: "Приключения", subtitle: "Мир ждёт вас.", img: slides[0], page: "travel" },
+  { title: "Еда", subtitle: "Вкус каждой страны — на вашей тарелке", img: slides[1], page: "food" },
+  { title: "Отели", subtitle: "Ваш дом в любой точке мира", img: slides[2], page: "hotels" }
 ];
 
 export default function Home({ setPage }: PageProps) {
@@ -80,7 +80,7 @@ export default function Home({ setPage }: PageProps) {
             <img src={card.img} className="h-52 w-full object-cover" />
             <div className="p-5">
               <h3 className="text-xl font-semibold text-white">{card.title}</h3>
-              <p className="text-gray-400">Мир ждет вас.</p>
+              <p className="text-gray-400">{card.subtitle}</p>
             </div>
           </div>
         ))}
