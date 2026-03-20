@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import type { PageProps, Page } from "../types";
 
 const slides: string[] = [
-  "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+  "https://images.wondershare.com/filmora/article-images/travel-transition-reels-filmora-1.jpg",
   "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-  "https://images.unsplash.com/photo-1566073771259-6a8506099945"
+  "https://assets.hiltonstatic.com/hilton-asset-cache/image/upload/c_fill,w_1920,h_1080,q_70,f_auto,g_auto/Imagery/Property%20Photography/Canopy/S/SEZMAPY/compressed_HR__DJI_20240620172221_0048_D_PHOTO_drone__.jpg"
 ];
 
 const cards: { title: string; img: string; page: Page }[] = [

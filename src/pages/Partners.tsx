@@ -7,6 +7,7 @@ import Loading from "../components/Loading";
 import ErrorState from "../components/ErrorState";
 import type { CartItem } from "../components/Cart";
 import EmptyState from "../components/EmptyState";
+import SearchBar from "../components/SearchBar";    
 
 const categoryLabels: Record<string, string> = {
   all: "Все",
@@ -25,6 +26,7 @@ export default function Partners(_: PageProps) {
   const [likedIds, setLikedIds] = useState<Set<number>>(new Set());
   const [cartIds, setCartIds] = useState<Set<number>>(new Set());
   const [cartOpen, setCartOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   const toggleLike = useCallback((id: number) => {
     setLikedIds((prev) => {
