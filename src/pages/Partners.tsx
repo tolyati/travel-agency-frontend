@@ -7,7 +7,8 @@ import Loading from "../components/Loading";
 import ErrorState from "../components/ErrorState";
 import type { CartItem } from "../components/Cart";
 import EmptyState from "../components/EmptyState";
-import SearchBar from "../components/SearchBar";    
+import SearchBar from "../components/SearchBar";
+import Hero from "../components/Hero";
 
 const categoryLabels: Record<string, string> = {
   all: "Все",
@@ -50,10 +51,14 @@ export default function Partners(_: PageProps) {
 
   const filtered = useMemo(() => {
     if (activeCategory === null) return [];
-    if (activeCategory === "all") return products;
-    if (activeCategory === "liked") return products.filter((p) => likedIds.has(p.id));
-    return products.filter((p) => p.category === activeCategory);
-  }, [products, activeCategory, likedIds]);
+    return products.filter((p) => {
+      const matchesSearch = p.title.toLowerCase().includes(search.trim().toLowerCase());
+      const matchesCategory =
+        activeCategory === "all" ||
+        (activeCategory === "liked" ? likedIds.has(p.id) : p.category === activeCategory);
+      return matchesSearch && matchesCategory;
+    });
+  }, [products, activeCategory, likedIds, search]);
 
   const cartItems = useMemo((): CartItem[] =>
     products
@@ -64,10 +69,14 @@ export default function Partners(_: PageProps) {
 
   return (
     <div className="animate-fadeIn space-y-6">
-      <div className="text-center space-y-2">
-        <h1 className="text-4xl font-bold text-purple-400">Популярные товары</h1>
-        <p className="text-gray-400">Лучшие товары от наших партнёров</p>
-      </div>
+
+      <Hero
+        image="https://nationalmagazine.ca/MediaGallery/NM/NationalMagazine/Articles/The%20Practice/Young%20Lawyers/10_step_program_YL769x468.jpg?ext=.jpg"
+        title="Популярные товары"
+        subtitle="Лучшие товары от наших партнёров"
+      />
+
+      <SearchBar value={search} onChange={setSearch} />
 
       <div className="flex flex-wrap gap-2">
         {categories.map((c) => (
@@ -86,9 +95,7 @@ export default function Partners(_: PageProps) {
       </div>
 
       {error && <ErrorState message={error} />}
-
       {!error && loading && <Loading />}
-
       {!error && !loading && filtered.length === 0 && <EmptyState />}
 
       {!error && !loading && filtered.length > 0 && (
