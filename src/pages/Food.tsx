@@ -74,7 +74,7 @@ export default function Food(_: PageProps) {
       <Hero
         image="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
         title="Путешествуй через вкус"
-        subtitle="10 блюд из самых популярных стран мира"
+        subtitle="11 блюд из самых популярных стран мира"
       />
       <SearchBar value={search} onChange={setSearch} />
       <FilterButtons countries={countries} active={activeCountry} onSelect={handleFilterSelect} likeCount={likedIds.size} />
