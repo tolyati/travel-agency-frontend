@@ -52,10 +52,9 @@ export default function Home({ setPage }: PageProps) {
           ›
         </button>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-black/80 to-transparent" />
         <div className="absolute bottom-8 left-10 text-white">
           <h1 className="text-4xl font-bold text-purple-300">Travel Aesthetic</h1>
-          <p className="text-gray-300 mt-2">My First Tailwind React Page</p>
         </div>
 
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
