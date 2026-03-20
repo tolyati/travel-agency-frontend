@@ -76,7 +76,7 @@ export default function Partners(_: PageProps) {
         subtitle="Лучшие товары от наших партнёров"
       />
 
-      <SearchBar value={search} onChange={setSearch} />
+      <SearchBar value={search} onChange={setSearch} placeholder="Поиск товара..." />
 
       <div className="flex flex-wrap gap-2">
         {categories.map((c) => (
