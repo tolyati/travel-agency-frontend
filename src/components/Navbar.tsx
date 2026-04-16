@@ -21,7 +21,7 @@ export default function Navbar({ page, setPage }: NavbarProps) {
           <button
             key={p}
             onClick={() => setPage(p)}
-            className={`px-3 py-2 rounded-md transition ${
+            className={`px-3 py-2 rounded-md transition text-lg ${
               page === p ? "text-purple-400 bg-purple-500/10" : "hover:text-purple-400"
             }`}
           >
