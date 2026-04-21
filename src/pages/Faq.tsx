@@ -1,4 +1,7 @@
+import { useState, useEffect } from "react";
 import type { PageProps } from "../types";
+import Header from "../components/Header";
+import Loading from "../components/Loading";
 
 interface FaqItem {
   q: string;
@@ -6,17 +9,59 @@ interface FaqItem {
 }
 
 const items: FaqItem[] = [
-  { q: "Что такое HTML?", a: "HTML — основа создания веб сайтов." },
-  { q: "Что такое CSS?", a: "Язык стилизации веб страниц." }
+  {
+    q: "Как забронировать тур?",
+    a: "Выберите понравившийся тур на нашем сайте, добавьте его в корзину и нажмите «Оформить заказ». Наш менеджер свяжется с вами в течение 24 часов для подтверждения бронирования.",
+  },
+  {
+    q: "Можно ли отменить или изменить бронирование?",
+    a: "Да, отмена или изменение возможны не позднее чем за 7 дней до начала тура. Для этого свяжитесь с нашей службой поддержки. При отмене менее чем за 7 дней может взиматься штраф.",
+  },
+  {
+    q: "Какие способы оплаты вы принимаете?",
+    a: "Мы принимаем банковские карты Visa и Mastercard, оплату через СБП, а также наличные в наших офисах. Возможна оплата в рассрочку на срок до 12 месяцев.",
+  },
+  {
+    q: "Входит ли перелёт в стоимость тура?",
+    a: "Это зависит от выбранного пакета. Туры с пометкой «Всё включено» включают перелёт, трансфер и проживание. В остальных случаях перелёт оплачивается отдельно.",
+  },
+  {
+    q: "Нужна ли виза для путешествия?",
+    a: "Требования к визе зависят от страны назначения и вашего гражданства. На странице каждого тура указаны визовые требования. Мы также можем помочь с оформлением визы за дополнительную плату.",
+  },
+  {
+    q: "Предоставляете ли вы страховку?",
+    a: "Да, все наши туры включают базовую туристическую страховку. Расширенное страховое покрытие (включая экстремальные виды спорта и медицинскую эвакуацию) можно добавить при оформлении заказа.",
+  },
+  {
+    q: "Есть ли скидки для детей и пенсионеров?",
+    a: "Дети до 12 лет получают скидку 30% на все туры. Для пенсионеров действует скидка 15%. Скидки применяются автоматически при оформлении заказа.",
+  },
+  {
+    q: "Как связаться с гидом во время тура?",
+    a: "После подтверждения бронирования вы получите контакты вашего персонального гида. Также круглосуточно работает наша горячая линия поддержки туристов.",
+  },
 ];
 
 export default function Faq(_: PageProps) {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 800);
+    return () => clearTimeout(t);
+  }, []);
+
+  if (loading) return <Loading />;
+
   return (
     <div className="space-y-4 animate-fadeIn">
+      <Header title="Частые вопросы" subtitle="Ответы на самые популярные вопросы о наших турах и услугах" />
       {items.map((item, i) => (
-        <details key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 cursor-pointer">
-          <summary className="text-white font-medium">{item.q}</summary>
-          <p className="text-gray-400 mt-3">{item.a}</p>
+        <details key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 cursor-pointer group">
+          <summary className="text-white font-medium list-none flex items-center justify-between">
+            {item.q}
+            <span className="text-purple-400 text-lg group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p className="text-gray-400 mt-3 leading-relaxed">{item.a}</p>
         </details>
       ))}
     </div>
