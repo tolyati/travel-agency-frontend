@@ -1,9 +1,9 @@
 import { memo, useCallback } from "react";
-import type { FoodItem } from "../data/products";
+import type { Item } from "../data/products";
 import Counter from "./Counter";
 
 interface ProductCardProps {
-  item: FoodItem;
+  item: Item;
   liked: boolean;
   onToggleLike: (id: number) => void;
   inCart: boolean;
@@ -24,7 +24,7 @@ const ProductCard = memo(function ProductCard({ item, liked, onToggleLike, inCar
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-white font-semibold text-lg">{item.name}</h3>
           <span className="text-xs text-purple-400 border border-purple-500/40 rounded-full px-2 py-0.5 shrink-0">
-            {item.country}
+            {item.country || item.category}
           </span>
         </div>
         <p className="text-gray-400 text-sm">{item.description}</p>
