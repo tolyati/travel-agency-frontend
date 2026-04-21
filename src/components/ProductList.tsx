@@ -1,10 +1,10 @@
 import { memo } from "react";
-import type { FoodItem } from "../data/products";
+import type { Item } from "../data/products";
 import ProductCard from "./ProductCard";
 import EmptyState from "./EmptyState";
 
 interface ProductListProps {
-  items: FoodItem[];
+  items: Item[];
   likedIds: Set<number>;
   onToggleLike: (id: number) => void;
   cartIds: Set<number>;

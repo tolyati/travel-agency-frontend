@@ -10,7 +10,8 @@ import Cart from "../components/Cart";
 import type { CartItem } from "../components/Cart";
 import Loading from "../components/Loading";
 
-const countries = [...new Set(foods.map((f) => f.country))];
+const foodItems = foods.filter((f) => f.category === "food");
+const countries = [...new Set(foodItems.map((f) => f.country))];
 
 export default function Food(_: PageProps) {
   const [loading, setLoading] = useState(true);
@@ -53,7 +54,7 @@ export default function Food(_: PageProps) {
 
   const filtered = useMemo(() => {
     if (activeCountry === null) return [];
-    return foods.filter((f) => {
+    return foodItems.filter((f) => {
       const matchesSearch = f.name.toLowerCase().includes(search.trim().toLowerCase());
       const matchesCountry = activeCountry === "Все" || activeCountry === "Понравившиеся" || f.country === activeCountry;
       const matchesLiked = activeCountry === "Понравившиеся" ? likedIds.has(f.id) : true;
@@ -62,7 +63,7 @@ export default function Food(_: PageProps) {
   }, [search, activeCountry, likedIds]);
 
   const cartItems = useMemo((): CartItem[] =>
-    foods
+    foodItems
       .filter((f) => cartIds.has(f.id))
       .map((f) => ({ id: f.id, name: f.name, img: f.img, price: f.price, count: counts[f.id] || 1 })),
     [cartIds, counts]
