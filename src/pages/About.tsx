@@ -1,6 +1,16 @@
+import { useState, useEffect } from "react";
 import type { PageProps } from "../types";
+import Loading from "../components/Loading";
 
 export default function About(_: PageProps) {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 800);
+    return () => clearTimeout(t);
+  }, []);
+
+  if (loading) return <Loading />;
+
   return (
     <div className="grid md:grid-cols-2 gap-8 items-center animate-fadeIn">
       <div>

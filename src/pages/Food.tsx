@@ -70,7 +70,7 @@ export default function Food(_: PageProps) {
 
   return loading ? <Loading /> : (
     <div className="animate-fadeIn space-y-4">
-      <Header />
+      <Header title="Кухни мира" subtitle="Откройте для себя традиционные блюда со всего света" />
       <Hero
         image="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
         title="Путешествуй через вкус"
