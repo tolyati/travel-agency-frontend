@@ -8,7 +8,7 @@ const slides: string[] = [
 ];
 
 const cards: { title: string; subtitle: string; img: string; page: Page }[] = [
-  { title: "Приключения", subtitle: "Мир ждёт вас.", img: slides[0], page: "travel" },
+  { title: "Путешествия", subtitle: "Мир ждёт вас.", img: slides[0], page: "travel" },
   { title: "Еда", subtitle: "Вкус каждой страны — на вашей тарелке", img: slides[1], page: "food" },
   { title: "Отели", subtitle: "Ваш дом в любой точке мира", img: slides[2], page: "hotels" }
 ];
