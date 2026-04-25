@@ -435,7 +435,7 @@ export const sights: Item[] = [
     country: "Япония",
     description: "Священная гора и самый узнаваемый символ Японии.",
     img: "https://static.visitjapan.ru/storage/app/media/Guide/3247/image/yamanashi904-5.jpeg",
-    price: 0,
+    price: 56,
     likes: 850,
   },
   {
@@ -495,7 +495,7 @@ export const sights: Item[] = [
     country: "Турция",
     description: "Памятник византийского зодчества, поражающий своим величием.",
     img: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b",
-    price: 0,
+    price: 45,
     likes: 810,
   },
   {
