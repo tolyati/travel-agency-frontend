@@ -71,7 +71,7 @@ export default function Partners(_: PageProps) {
     <div className="animate-fadeIn space-y-6">
 
       <Hero
-        image="https://nationalmagazine.ca/MediaGallery/NM/NationalMagazine/Articles/The%20Practice/Young%20Lawyers/10_step_program_YL769x468.jpg?ext=.jpg"
+        image="https://www.financialexpress.com/wp-content/uploads/2022/09/general-atomics-Indian-Artificial-Intelligence-Company-tie-up.jpg"
         title="Популярные товары"
         subtitle="Лучшие товары от наших партнёров"
       />
