@@ -121,3 +121,105 @@ export const foods: Item[] = [
     likes: 100,
   },
 ];
+ export const tours: Item[] = [
+  {
+    id: 12,
+    name: "Магия древнего Киото",
+    category: "tour",
+    country: "Япония",
+    description: "Бамбуковый лес Арасияма и золотой павильон Кинкаку-дзи в сердце японских традиций.",
+    img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e",
+    price: 2500,
+    likes: 450
+  },
+  {
+    id: 13,
+    name: "Итальянское Возрождение",
+    category: "tour",
+    country: "Италия",
+    description: "Завораживающая Флоренция и прогулки на гондолах по каналам Венеции.",
+    img: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9",
+    price: 1800,
+    likes: 520
+  },
+  {
+    id: 14,
+    name: "Райский Канкун",
+    category: "tour",
+    country: "Мексика",
+    description: "Бирюзовые лагуны и величественные пирамиды Майя в древнем городе Чичен-Ица.",
+    img: "https://cdn.coral.ru/content/img/mexico/cancun.jpg",
+    price: 1600,
+    likes: 340
+  },
+  {
+    id: 15,
+    name: "Огни Парижа",
+    category: "tour",
+    country: "Франция",
+    description: "Закат Эйфелевой башни и ужин в уютном ресторанчике на Монмартре.",
+    img: "https://i.artfile.ru/1920x1080_1665652_[www.ArtFile.ru].jpg",
+    price: 2100,
+    likes: 610
+  },
+  {
+    id: 16,
+    name: "Тайский залив",
+    category: "tour",
+    country: "Таиланд",
+    description: "Белоснежные пляжи Пхукета и незабываемые закаты на скалах Краби.",
+    img: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a",
+    price: 1200,
+    likes: 890
+  },
+  {
+    id: 17,
+    name: "Величие Аризоны",
+    category: "tour",
+    country: "США",
+    description: "Масштабный Гранд-Каньон и мистическая красота Долины Монументов.",
+    img: "https://guide.planetofhotels.com/sites/default/files/styles/paragraph__hero_banner__hb_image__1880bp/public/hero_banner/grand-canyon-2.jpg",
+    price: 3000,
+    likes: 270
+  },
+  {
+    id: 18,
+    name: "Рассвет в Каппадокии",
+    category: "tour",
+    country: "Турция",
+    description: "Сотни воздушных шаров над «долиной любви» в лучах утреннего солнца.",
+    img: "https://cdn.tripster.ru/thumbs2/d9dcf54e-7b51-11eb-8080-f62f63504e19.800x600.jpg",
+    price: 1400,
+    likes: 1200
+  },
+  {
+    id: 19,
+    name: "Императорский Пекин",
+    category: "tour",
+    country: "Китай",
+    description: "Тайны Запретного города и поход по самым живописным участкам Великой стены.",
+    img: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d",
+    price: 2300,
+    likes: 310
+  },
+  {
+    id: 20,
+    name: "Розовый город Джайпур",
+    category: "tour",
+    country: "Индия",
+    description: "Дворцы махараджей и легендарный Тадж-Махал в лучах заката.",
+    img: "https://t3.ftcdn.net/jpg/03/32/21/74/360_F_332217448_5NO38ZfGes9M0O24v42BX2JOYDwnqgRm.jpg",
+    price: 1100,
+    likes: 415
+  },
+  {
+    id: 21,
+    name: "Дыхание Атлантики",
+    category: "tour",
+    country: "Португалия",
+    description: "Грот Бенагил и самые высокие волны Европы в живописном Назаре.",
+    img: "https://media.istockphoto.com/id/1404726011/photo/albandeira-arch-at-praia-de-albandeiras-beautiful-rocky-coast-and-beach-on-the-famous-algarve.jpg?s=612x612&w=0&k=20&c=iy28mUYZA-7_08YxEBB9SrxLDRm4jZcASl-JVO7WIEg=",
+    price: 1700,
+    likes: 560
+  }
+];
