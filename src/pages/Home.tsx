@@ -4,20 +4,24 @@ import type { PageProps, Page } from "../types";
 const slides: string[] = [
   "https://images.wondershare.com/filmora/article-images/travel-transition-reels-filmora-1.jpg",
   "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-  "https://assets.hiltonstatic.com/hilton-asset-cache/image/upload/c_fill,w_1920,h_1080,q_70,f_auto,g_auto/Imagery/Property%20Photography/Canopy/S/SEZMAPY/compressed_HR__DJI_20240620172221_0048_D_PHOTO_drone__.jpg"
+  "https://assets.hiltonstatic.com/hilton-asset-cache/image/upload/c_fill,w_1920,h_1080,q_70,f_auto,g_auto/Imagery/Property%20Photography/Canopy/S/SEZMAPY/compressed_HR__DJI_20240620172221_0048_D_PHOTO_drone__.jpg",
+   "https://wallpaperaccess.com/full/3257655.jpg"
 ];
 
 const cards: { title: string; subtitle: string; img: string; page: Page }[] = [
   { title: "Путешествия", subtitle: "Мир ждёт вас.", img: slides[0], page: "travel" },
   { title: "Еда", subtitle: "Вкус каждой страны — на вашей тарелке", img: slides[1], page: "food" },
-  { title: "Отели", subtitle: "Ваш дом в любой точке мира", img: slides[2], page: "hotels" }
+  { title: "Отели", subtitle: "Ваш дом в любой точке мира", img: slides[2], page: "hotels" },
+  {title:"Отдых", subtitle:"Расслабьтесь и наслаждайтесь моментом", img: "https://img2.wallspic.com/previews/0/5/1/9/99150/99150-hai_bin_du_jia_sheng_de-lu_you_ye-an_bian-re_dai_de_qu-tian_kong-x750.jpg", page:"relax"},
+  {title:"Места", subtitle:"Прикоснитесь к истории и красоте нашей планеты", img:slides[3], page:"sights"},
+  {title:"Партнёры", subtitle:"Лучшие предложения от наших партнёров", img:"https://www.financialexpress.com/wp-content/uploads/2022/09/general-atomics-Indian-Artificial-Intelligence-Company-tie-up.jpg", page:"partners"},
 ];
 
 export default function Home({ setPage }: PageProps) {
   const [slideIndex, setSlideIndex] = useState<number>(0);
 
   const nextSlide = () => setSlideIndex((prev) => (prev + 1) % slides.length);
-  const prevSlide = () => setSlideIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  const prevSlide = () => setSlideIndex((prev) => (prev === 0 ? slides.length - 2 : prev - 2));
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
