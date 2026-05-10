@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Travel from "./pages/Travel";
-import Food from "./pages/Food";
+import Packages from "./pages/Packages";
 import Relax from "./pages/Relax";
 import Hotels from "./pages/Hotels";
 import Sights from "./pages/Sights";
@@ -15,7 +15,7 @@ import type { Page, PageProps } from "./types";
 import type { ComponentType } from "react";
 
 const pageMap: Record<Page, ComponentType<PageProps>> = {
-  home: Home, about: About, travel: Travel, food: Food,
+  home: Home, about: About, travel: Travel, packages: Packages,
   relax: Relax, hotels: Hotels, sights: Sights,
   partners: Partners, faq: Faq, support: Support
 };
