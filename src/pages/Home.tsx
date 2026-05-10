@@ -4,7 +4,8 @@ import type { PageProps, Page } from "../types";
 const slides: string[] = [
   "https://images.wondershare.com/filmora/article-images/travel-transition-reels-filmora-1.jpg",
   "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-  "https://assets.hiltonstatic.com/hilton-asset-cache/image/upload/c_fill,w_1920,h_1080,q_70,f_auto,g_auto/Imagery/Property%20Photography/Canopy/S/SEZMAPY/compressed_HR__DJI_20240620172221_0048_D_PHOTO_drone__.jpg"
+  "https://assets.hiltonstatic.com/hilton-asset-cache/image/upload/c_fill,w_1920,h_1080,q_70,f_auto,g_auto/Imagery/Property%20Photography/Canopy/S/SEZMAPY/compressed_HR__DJI_20240620172221_0048_D_PHOTO_drone__.jpg",
+   "https://wallpaperaccess.com/full/3257655.jpg"
 ];
 
 const cards: { title: string; subtitle: string; img: string; page: Page }[] = [
@@ -17,7 +18,7 @@ export default function Home({ setPage }: PageProps) {
   const [slideIndex, setSlideIndex] = useState<number>(0);
 
   const nextSlide = () => setSlideIndex((prev) => (prev + 1) % slides.length);
-  const prevSlide = () => setSlideIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  const prevSlide = () => setSlideIndex((prev) => (prev === 0 ? slides.length - 2 : prev - 2));
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
