@@ -10,11 +10,8 @@ const slides: string[] = [
 
 const cards: { title: string; subtitle: string; img: string; page: Page }[] = [
   { title: "Путешествия", subtitle: "Мир ждёт вас.", img: slides[0], page: "travel" },
-  { title: "Еда", subtitle: "Вкус каждой страны — на вашей тарелке", img: slides[1], page: "food" },
-  { title: "Отели", subtitle: "Ваш дом в любой точке мира", img: slides[2], page: "hotels" },
-  {title:"Отдых", subtitle:"Расслабьтесь и наслаждайтесь моментом", img: "https://img2.wallspic.com/previews/0/5/1/9/99150/99150-hai_bin_du_jia_sheng_de-lu_you_ye-an_bian-re_dai_de_qu-tian_kong-x750.jpg", page:"relax"},
-  {title:"Места", subtitle:"Прикоснитесь к истории и красоте нашей планеты", img:slides[3], page:"sights"},
-  {title:"Партнёры", subtitle:"Лучшие предложения от наших партнёров", img:"https://www.financialexpress.com/wp-content/uploads/2022/09/general-atomics-Indian-Artificial-Intelligence-Company-tie-up.jpg", page:"partners"},
+  { title: "Пакеты", subtitle: "Пакеты на любое путешествие — просто и удобно", img: slides[1], page: "packages" },
+  { title: "Отели", subtitle: "Ваш дом в любой точке мира", img: slides[2], page: "hotels" }
 ];
 
 export default function Home({ setPage }: PageProps) {
