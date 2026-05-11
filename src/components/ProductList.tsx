@@ -11,9 +11,10 @@ interface ProductListProps {
   counts: Record<number, number>;
   onToggleCart: (id: number) => void;
   onCountChange: (id: number, val: number) => void;
+  onGoToLogin?: () => void;
 }
 
-const ProductList = memo(function ProductList({ items, likedIds, onToggleLike, cartIds, counts, onToggleCart, onCountChange }: ProductListProps) {
+const ProductList = memo(function ProductList({ items, likedIds, onToggleLike, cartIds, counts, onToggleCart, onCountChange, onGoToLogin }: ProductListProps) {
   if (items.length === 0) return <EmptyState />;
 
   return (
@@ -28,6 +29,7 @@ const ProductList = memo(function ProductList({ items, likedIds, onToggleLike, c
           count={counts[item.id] || 0}
           onToggleCart={onToggleCart}
           onCountChange={onCountChange}
+          onGoToLogin={onGoToLogin}
         />
       ))}
     </div>

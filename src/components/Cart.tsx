@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 export interface CartItem {
   id: number;
@@ -13,9 +14,11 @@ interface CartProps {
   open: boolean;
   onOpen: () => void;
   onClose: () => void;
+  onGoToLogin?: () => void;
 }
 
-export default function Cart({ items, open, onOpen, onClose }: CartProps) {
+export default function Cart({ items, open, onOpen, onClose, onGoToLogin }: CartProps) {
+  const { user } = useAuth();
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,6 +28,15 @@ export default function Cart({ items, open, onOpen, onClose }: CartProps) {
   }, [open]);
 
   const total = items.reduce((sum, i) => sum + i.price * i.count, 0).toFixed(2);
+
+  function handleCheckout() {
+    if (!user) {
+      onClose();
+      onGoToLogin?.();
+      return;
+    }
+    // logged in — backend call goes here
+  }
 
   return (
     <>
@@ -70,7 +82,10 @@ export default function Cart({ items, open, onOpen, onClose }: CartProps) {
               <span className="text-purple-400 font-bold text-xl">${total}</span>
             </div>
 
-            <button className="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-semibold transition">
+            <button
+              onClick={handleCheckout}
+              className="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-semibold transition"
+            >
               Оформить заказ
             </button>
           </div>
