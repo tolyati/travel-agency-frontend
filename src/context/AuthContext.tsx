@@ -25,7 +25,9 @@ function decodeToken(token: string): User | null {
       id: Number(payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]),
       username: payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
       email: payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"] ?? "",
-      role: payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] ?? "user",
+      role: (
+        payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] ?? "user"
+      ).toLowerCase().trim(),
     };
   } catch {
     return null;

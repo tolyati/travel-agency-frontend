@@ -1,6 +1,6 @@
 export type Role = "guest" | "user" | "admin";
 
-export type Page = "home" | "about" | "travel" | "packages" | "relax" | "hotels" | "sights" | "partners" | "faq" | "support" | "login" | "register" | "unauthorized";
+export type Page = "home" | "about" | "travel" | "packages" | "relax" | "hotels" | "sights" | "partners" | "faq" | "support" | "login" | "register" | "unauthorized" | "adminTours";
 
 export interface PageProps {
   setPage: (p: Page) => void;

@@ -1,13 +1,13 @@
 import type { Page } from "../types";
 import { useAuth } from "../hooks/useAuth";
 
-const labels: Record<Exclude<Page, "login" | "register" | "unauthorized">, string> = {
+const labels: Record<Exclude<Page, "login" | "register" | "unauthorized" | "adminTours">, string> = {
   home: "Главная", about: "О нас", travel: "Путешествия",
   packages: "Пакеты", relax: "Отдых", hotels: "Отели",
   sights: "Места", partners: "Партнеры", faq: "FAQ", support: "Поддержка"
 };
 
-const pages = Object.keys(labels) as Exclude<Page, "login" | "register" | "unauthorized">[];
+const pages = Object.keys(labels) as Exclude<Page, "login" | "register" | "unauthorized" | "adminTours">[];
 
 interface NavbarProps {
   page: Page;
@@ -42,6 +42,14 @@ export default function Navbar({ page, setPage }: NavbarProps) {
               >
                 Выйти
               </button>
+              {user?.role === "admin" && (
+                 <button
+                    onClick={() => setPage("adminTours")}
+                    className="px-3 py-1.5 rounded-md text-sm text-yellow-400 hover:bg-yellow-500/10"
+                    >
+                    Админка
+                    </button>
+                )}
             </>
           ) : (
             <>
