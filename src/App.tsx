@@ -19,12 +19,14 @@ import { useAuth } from "./hooks/useAuth";
 import { getRedirect } from "./guards/usePageGuard";
 import type { Page, PageProps, Role } from "./types";
 import type { ComponentType } from "react";
+import AdminTours from "./pages/AdminTours";
 
 const pageMap: Record<Page, ComponentType<PageProps>> = {
   home: Home, about: About, travel: Travel, packages: Packages,
   relax: Relax, hotels: Hotels, sights: Sights,
   partners: Partners, faq: Faq, support: Support,
   login: Login, register: Register, unauthorized: Unauthorized,
+  adminTours: AdminTours
 };
 
 function AppContent() {
