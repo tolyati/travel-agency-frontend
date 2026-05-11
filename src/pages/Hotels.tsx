@@ -12,7 +12,7 @@ import Loading from "../components/Loading";
 
 const countries = [...new Set(hotels.map((h) => h.country))];
 
-export default function Hotels(_: PageProps) {
+export default function Hotels({ setPage }: PageProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +24,6 @@ export default function Hotels(_: PageProps) {
   const [activeCountry, setActiveCountry] = useState<string | null>("Все");
   const [likedIds, setLikedIds] = useState<Set<number>>(new Set());
   const [cartIds, setCartIds] = useState<Set<number>>(new Set());
-  const [counts, setCounts] = useState<Record<number, number>>({});
   const [cartOpen, setCartOpen] = useState(false);
 
   const toggleLike = useCallback((id: number) => {
@@ -41,10 +40,6 @@ export default function Hotels(_: PageProps) {
       next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
-  }, []);
-
-  const handleCountChange = useCallback((id: number, val: number) => {
-    setCounts((prev) => ({ ...prev, [id]: val }));
   }, []);
 
   const handleFilterSelect = useCallback((c: string) => {
@@ -64,8 +59,8 @@ export default function Hotels(_: PageProps) {
   const cartItems = useMemo((): CartItem[] =>
     hotels
       .filter((h) => cartIds.has(h.id))
-      .map((h) => ({ id: h.id, name: h.name, img: h.img, price: h.price, count: counts[h.id] || 1 })),
-    [cartIds, counts]
+      .map((h) => ({ id: h.id, name: h.name, img: h.img, price: h.price, count: 1 })),
+    [cartIds]
   );
 
   return loading ? <Loading /> : (
@@ -83,11 +78,12 @@ export default function Hotels(_: PageProps) {
         likedIds={likedIds}
         onToggleLike={toggleLike}
         cartIds={cartIds}
-        counts={counts}
+        counts={{}}
         onToggleCart={toggleCart}
-        onCountChange={handleCountChange}
+        onCountChange={() => {}}
+        onGoToLogin={() => setPage("login")}
       />
-      <Cart items={cartItems} open={cartOpen} onOpen={() => setCartOpen(true)} onClose={() => setCartOpen(false)} />
+      <Cart items={cartItems} open={cartOpen} onOpen={() => setCartOpen(true)} onClose={() => setCartOpen(false)} onGoToLogin={() => setPage("login")} />
     </div>
   );
 }
