@@ -21,7 +21,7 @@ const categoryLabels: Record<string, string> = {
 
 const categories = Object.keys(categoryLabels);
 
-export default function Partners(_: PageProps) {
+export default function Partners({ setPage }: PageProps) {
   const { products, loading, error } = useFetchProducts();
   const [activeCategory, setActiveCategory] = useState<string | null>("all");
   const [likedIds, setLikedIds] = useState<Set<number>>(new Set());
@@ -60,12 +60,17 @@ export default function Partners(_: PageProps) {
     });
   }, [products, activeCategory, likedIds, search]);
 
-  const cartItems = useMemo((): CartItem[] =>
-    products
-      .filter((p) => cartIds.has(p.id))
-      .map((p) => ({ id: p.id, name: p.title, img: p.image, price: p.price, count: 1 })),
-    [products, cartIds]
-  );
+  const cartItems = useMemo((): CartItem[] => {
+  return products
+    .filter((p) => cartIds.has(p.id))
+    .map((p) => ({
+      id: p.id,
+      name: p.title,
+      img: p.image,
+      price: p.price,
+      count: 1,
+    }));
+}, [products, cartIds]);
 
   return (
     <div className="animate-fadeIn space-y-6">
@@ -113,7 +118,7 @@ export default function Partners(_: PageProps) {
         </div>
       )}
 
-      <Cart items={cartItems} open={cartOpen} onOpen={() => setCartOpen(true)} onClose={() => setCartOpen(false)} />
+      <Cart items={cartItems} open={cartOpen} onOpen={() => setCartOpen(true)} onClose={() => setCartOpen(false)} onGoToLogin={() => setPage("login")} />
     </div>
   );
 }
