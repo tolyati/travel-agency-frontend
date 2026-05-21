@@ -1,5 +1,6 @@
 import type { Page } from "../types";
 import { useAuth } from "../hooks/useAuth";
+import logo from "../assets/logo.png"; 
 
 const labels: Record<Exclude<Page, "login" | "register" | "unauthorized" | "adminTours">, string> = {
   home: "Главная", about: "О нас", travel: "Путешествия",
@@ -19,43 +20,52 @@ export default function Navbar({ page, setPage }: NavbarProps) {
 
   return (
     <header className="fixed top-0 w-full backdrop-blur-xl bg-black/80 border-b border-zinc-800 z-50">
-      <nav className="container mx-auto flex flex-wrap justify-center gap-2 p-4 text-xs uppercase font-semibold">
-        {pages.map((p) => (
-          <button
-            key={p}
-            onClick={() => setPage(p)}
-            className={`px-3 py-2 rounded-md transition text-lg ${
-              page === p ? "text-purple-400 bg-purple-500/10" : "hover:text-purple-400"
-            }`}
-          >
-            {labels[p]}
-          </button>
-        ))}
+      <nav className="w-full max-w-[1536px] mx-auto flex items-center justify-start gap-2 px-6 py-3 uppercase font-semibold select-none">
+        
+        <img 
+          src={logo} 
+          alt="Curated Compass Logo" 
+          className="h-15 w-auto object-contain cursor-pointer flex-shrink-0 " 
+          onClick={() => setPage("home")} 
+        />
+        <div className="flex items-center justify-center pl-12 gap-1 whitespace-nowrap">
+          {pages.map((p) => (
+            <button
+              key={p}
+              onClick={() => setPage(p)}
+              className={`px-2.5 py-2 rounded-md transition text-base whitespace-nowrap tracking-wide ${
+                page === p ? "text-purple-400 bg-purple-500/10" : "hover:text-purple-400"
+              }`}
+            >
+              {labels[p]}
+            </button>
+          ))}
+        </div>
 
-        <div className="flex items-center gap-2 ml-4 border-l border-zinc-700 pl-4">
+        <div className="flex items-center gap-2 border-l border-zinc-700 pl-4 flex-shrink-0 ml-12">
           {user ? (
             <>
-              <span className="text-purple-400 text-sm normal-case font-medium">👤 {user.username}</span>
+              <span className="text-purple-400 text-base normal-case font-medium">👤 {user.username}</span>
               <button
                 onClick={() => { handleLogout(); setPage("home"); }}
-                className="px-3 py-1.5 rounded-md text-sm text-gray-400 hover:text-red-400 transition normal-case"
+                className="px-3 py-1.5 rounded-md text-base text-gray-400 hover:text-red-400 transition normal-case"
               >
                 Выйти
               </button>
               {user?.role === "admin" && (
-                 <button
-                    onClick={() => setPage("adminTours")}
-                    className="px-3 py-1.5 rounded-md text-sm text-yellow-400 hover:bg-yellow-500/10"
-                    >
-                    Админка
-                    </button>
-                )}
+                <button
+                  onClick={() => setPage("adminTours")}
+                  className="px-3 py-1.5 rounded-md text-base text-yellow-400 hover:bg-yellow-500/10"
+                >
+                  Админка
+                </button>
+              )}
             </>
           ) : (
             <>
               <button
                 onClick={() => setPage("login")}
-                className={`px-3 py-1.5 rounded-md text-sm transition normal-case ${
+                className={`px-3 py-1.5 rounded-md text-base transition normal-case ${
                   page === "login" ? "text-purple-400 bg-purple-500/10" : "text-gray-400 hover:text-purple-400"
                 }`}
               >
@@ -63,7 +73,7 @@ export default function Navbar({ page, setPage }: NavbarProps) {
               </button>
               <button
                 onClick={() => setPage("register")}
-                className={`px-3 py-1.5 rounded-md text-sm transition normal-case border border-purple-500/40 ${
+                className={`px-3 py-1.5 rounded-md text-base transition normal-case border border-purple-500/40 ${
                   page === "register" ? "bg-purple-500/20 text-purple-400" : "text-purple-400 hover:bg-purple-500/10"
                 }`}
               >
@@ -72,6 +82,7 @@ export default function Navbar({ page, setPage }: NavbarProps) {
             </>
           )}
         </div>
+
       </nav>
     </header>
   );

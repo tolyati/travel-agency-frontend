@@ -3,7 +3,7 @@ import type { PageProps, Page } from "../types";
 
 const slides: string[] = [
   "https://images.wondershare.com/filmora/article-images/travel-transition-reels-filmora-1.jpg",
-  "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+  "https://img.goodfon.ru/wallpaper/nbig/4/af/ii-art-neiroset-more-okean-bereg-rakushka-rakushki-pliazh-17.webp",
   "https://assets.hiltonstatic.com/hilton-asset-cache/image/upload/c_fill,w_1920,h_1080,q_70,f_auto,g_auto/Imagery/Property%20Photography/Canopy/S/SEZMAPY/compressed_HR__DJI_20240620172221_0048_D_PHOTO_drone__.jpg",
    "https://wallpaperaccess.com/full/3257655.jpg"
 ];
@@ -11,7 +11,11 @@ const slides: string[] = [
 const cards: { title: string; subtitle: string; img: string; page: Page }[] = [
   { title: "Путешествия", subtitle: "Мир ждёт вас.", img: slides[0], page: "travel" },
   { title: "Пакеты", subtitle: "Пакеты на любое путешествие — просто и удобно", img: slides[1], page: "packages" },
-  { title: "Отели", subtitle: "Ваш дом в любой точке мира", img: slides[2], page: "hotels" }
+  { title: "Отели", subtitle: "Ваш дом в любой точке мира", img: slides[2], page: "hotels" },
+  { title: "Места", subtitle: "Откройте для себя удивительные места по всему миру", img: slides[3], page: "sights" },
+  { title: "Отдых", subtitle: "Лучшие SPA и оздоровительные центры мира", img: "https://i.etsystatic.com/isbl/265bdc/48233911/isbl_1680x420.48233911_i27aqdrv.jpg?version=0", page: "relax" },
+  { title: "Партнёры", subtitle: "Лучшие предложения от наших партнёров", img: "https://www.financialexpress.com/wp-content/uploads/2022/09/general-atomics-Indian-Artificial-Intelligence-Company-tie-up.jpg", page: "partners" },
+  
 ];
 
 export default function Home({ setPage }: PageProps) {
