@@ -9,6 +9,8 @@ import ProductList from "../components/ProductList";
 import Cart from "../components/Cart";
 import type { CartItem } from "../components/Cart";
 import Loading from "../components/Loading";
+import { safeLower } from "../utils/safe";
+import SalonDetailsModal from "../components/SalonDetailsModal";
 
 const countries = [...new Set(salons.map((s) => s.country))];
 
@@ -25,6 +27,7 @@ export default function Relax({ setPage }: PageProps) {
   const [likedIds, setLikedIds] = useState<Set<number>>(new Set());
   const [cartIds, setCartIds] = useState<Set<number>>(new Set());
   const [cartOpen, setCartOpen] = useState(false);
+  const [selectedSalon, setSelectedSalon] = useState<any | null>(null);
 
   const toggleLike = useCallback((id: number) => {
     setLikedIds((prev) => {
@@ -49,7 +52,7 @@ export default function Relax({ setPage }: PageProps) {
   const filtered = useMemo(() => {
     if (activeCountry === null) return [];
     return salons.filter((s) => {
-      const matchesSearch = s.name.toLowerCase().includes(search.trim().toLowerCase());
+      const matchesSearch = safeLower(s.name ?? "").includes(search.trim().toLowerCase());
       const matchesCountry = activeCountry === "Все" || activeCountry === "Понравившиеся" || s.country === activeCountry;
       const matchesLiked = activeCountry === "Понравившиеся" ? likedIds.has(s.id) : true;
       return matchesSearch && matchesCountry && matchesLiked;
@@ -82,8 +85,15 @@ export default function Relax({ setPage }: PageProps) {
         onToggleCart={toggleCart}
         onCountChange={() => {}}
         onGoToLogin={() => setPage("login")}
+        onItemClick={(item) => setSelectedSalon(item)}
       />
       <Cart items={cartItems} open={cartOpen} onOpen={() => setCartOpen(true)} onClose={() => setCartOpen(false)} onGoToLogin={() => setPage("login")} />
+      {selectedSalon && (
+        <SalonDetailsModal
+          item={selectedSalon}
+          onClose={() => setSelectedSalon(null)}
+        />
+      )}
     </div>
   );
 }

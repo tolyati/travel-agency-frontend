@@ -1,14 +1,14 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 import type { PageProps } from "../types";
-import { sights } from "../data/products"; 
+import { sights } from "../data/products";
+
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import SearchBar from "../components/SearchBar";
 import FilterButtons from "../components/FilterButtons";
-import ProductList from "../components/ProductList";
-import Cart from "../components/Cart";
-import type { CartItem } from "../components/Cart";
+import SightList from "../components/SightList";
 import Loading from "../components/Loading";
+import { safeLower } from "../utils/safe";
 
 const countries = [...new Set(sights.map((s) => s.country))];
 
@@ -23,8 +23,10 @@ export default function Sights({ setPage }: PageProps) {
   const [search, setSearch] = useState("");
   const [activeCountry, setActiveCountry] = useState<string | null>("Все");
   const [likedIds, setLikedIds] = useState<Set<number>>(new Set());
-  const [cartIds, setCartIds] = useState<Set<number>>(new Set());
-  const [cartOpen, setCartOpen] = useState(false);
+  const [selectedSight, setSelectedSight] = useState<any | null>(null);
+
+  const openSight = (item: any) => setSelectedSight(item);
+  const closeSight = () => setSelectedSight(null);
 
   const toggleLike = useCallback((id: number) => {
     setLikedIds((prev) => {
@@ -34,56 +36,78 @@ export default function Sights({ setPage }: PageProps) {
     });
   }, []);
 
-  const toggleCart = useCallback((id: number) => {
-    setCartIds((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  }, []);
-
-  const handleFilterSelect = useCallback((c: string) => {
-    setActiveCountry((prev) => (prev === c ? null : c));
-  }, []);
-
   const filtered = useMemo(() => {
-    if (activeCountry === null) return [];
     return sights.filter((s) => {
-      const matchesSearch = s.name.toLowerCase().includes(search.trim().toLowerCase());
-      const matchesCountry = activeCountry === "Все" || activeCountry === "Понравившиеся" || s.country === activeCountry;
-      const matchesLiked = activeCountry === "Понравившиеся" ? likedIds.has(s.id) : true;
-      return matchesSearch && matchesCountry && matchesLiked;
+      const matchesSearch = safeLower(s.name ?? "")
+        .includes(search.trim().toLowerCase());
+
+      const matchesCountry =
+        activeCountry === "Все" || s.country === activeCountry;
+
+      return matchesSearch && matchesCountry;
     });
-  }, [search, activeCountry, likedIds]);
+  }, [search, activeCountry]);
 
-  const cartItems = useMemo((): CartItem[] =>
-    sights
-      .filter((s) => cartIds.has(s.id))
-      .map((s) => ({ id: s.id, name: s.name, img: s.img, price: s.price, count: 1 })),
-    [cartIds]
-  );
+  return loading ? (
+    <Loading />
+  ) : (
+    <div className="space-y-4">
+      <Header title="Удивительные Места" subtitle="Красота мира" />
 
-  return loading ? <Loading /> : (
-    <div className="animate-fadeIn space-y-4">
-      <Header title="Удивительные Места" subtitle="Прикоснитесь к истории и красоте нашей планеты" />
       <Hero
         image="https://adventureswithamie.com/wp-content/uploads/2021/04/Chinaweb.jpg"
         title="Там, где замирает время"
-        subtitle="Главные достопримечательности, которые стоит увидеть хотя бы раз"
+        subtitle="Главные достопримечательности"
       />
-      <SearchBar value={search} onChange={setSearch} placeholder="Поиск мест..." />
-      <FilterButtons countries={countries} active={activeCountry} onSelect={handleFilterSelect} likeCount={likedIds.size} />
-      <ProductList
+
+      <SearchBar value={search} onChange={setSearch} placeholder="Поиск..." />
+
+      <FilterButtons
+        countries={countries}
+        active={activeCountry}
+        onSelect={setActiveCountry}
+        likeCount={likedIds.size}
+      />
+
+      <SightList
         items={filtered}
         likedIds={likedIds}
         onToggleLike={toggleLike}
-        cartIds={cartIds}
-        counts={{}}
-        onToggleCart={toggleCart}
-        onCountChange={() => {}}
-        onGoToLogin={() => setPage("login")}
+        onItemClick={openSight}
       />
-      <Cart items={cartItems} open={cartOpen} onOpen={() => setCartOpen(true)} onClose={() => setCartOpen(false)} onGoToLogin={() => setPage("login")} />
+
+      {/* MODAL */}
+      {selectedSight && (
+        <div
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+          onClick={closeSight}
+        >
+          <div
+            className="bg-zinc-900 p-6 w-[400px] rounded-lg space-y-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-xl font-bold">{selectedSight.name}</h2>
+
+            <img
+              src={selectedSight.img}
+              className="w-full h-40 object-cover rounded"
+            />
+
+            <p className="text-gray-300">{selectedSight.description}</p>
+
+            <p className="text-yellow-400 font-bold">
+              {selectedSight.price} $
+            </p>
+
+            <button
+              onClick={closeSight}
+              className="bg-red-600 px-3 py-1 w-full"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

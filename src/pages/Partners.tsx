@@ -9,6 +9,7 @@ import type { CartItem } from "../components/Cart";
 import EmptyState from "../components/EmptyState";
 import SearchBar from "../components/SearchBar";
 import Hero from "../components/Hero";
+import { safeLower } from "../utils/safe";
 
 const categoryLabels: Record<string, string> = {
   all: "Все",
@@ -52,7 +53,7 @@ export default function Partners({ setPage }: PageProps) {
   const filtered = useMemo(() => {
     if (activeCategory === null) return [];
     return products.filter((p) => {
-      const matchesSearch = p.title.toLowerCase().includes(search.trim().toLowerCase());
+      const matchesSearch = safeLower(p.title ?? "").includes(search.trim().toLowerCase());
       const matchesCategory =
         activeCategory === "all" ||
         (activeCategory === "liked" ? likedIds.has(p.id) : p.category === activeCategory);

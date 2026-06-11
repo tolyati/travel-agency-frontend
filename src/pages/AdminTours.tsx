@@ -123,7 +123,6 @@ export default function AdminTours({ setPage }: PageProps) {
         </button>
       </div>
 
-      {/* FORM */}
       <div className="bg-zinc-900 p-4 rounded space-y-2">
         <input
           className="w-full p-2 bg-zinc-800"
@@ -183,7 +182,6 @@ export default function AdminTours({ setPage }: PageProps) {
         </button>
       </div>
 
-      {/* LIST */}
       <div className="space-y-2">
         {loading ? (
           <p>Loading...</p>
