@@ -29,14 +29,31 @@ export default function Cart({ items, open, onOpen, onClose, onGoToLogin }: Cart
 
   const total = items.reduce((sum, i) => sum + i.price * i.count, 0).toFixed(2);
 
-  function handleCheckout() {
-    if (!user) {
-      onClose();
-      onGoToLogin?.();
-      return;
-    }
-    // logged in — backend call goes here
+async function handleCheckout() {
+  if (!user) {
+    onClose();
+    onGoToLogin?.();
+    return;
   }
+
+  const res = await fetch("https://localhost:7233/api/payment/create-product-session", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      items: items.map(i => ({
+        name: i.name,
+        price: i.price,
+        quantity: i.count
+      }))
+    }),
+  });
+
+  const data = await res.json();
+
+  window.location.href = data.url;
+}
 
   return (
     <>

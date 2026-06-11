@@ -1,40 +1,73 @@
+import { useEffect } from "react";
 import type { Page } from "../types";
 import { useAuth } from "../hooks/useAuth";
-import logo from "../assets/logo.png"; 
+import logo from "../assets/logo.png";
 
-const labels: Record<Exclude<Page, "login" | "register" | "unauthorized" | "adminTours">, string> = {
-  home: "Главная", about: "О нас", travel: "Путешествия",
-  packages: "Пакеты", relax: "Отдых", hotels: "Отели",
-  sights: "Места", partners: "Партнеры", faq: "FAQ", support: "Поддержка"
+const labels: Partial<Record<Page, string>> = {
+  home: "Главная",
+  travel: "Путешествия",
+  packages: "Пакеты",
+  relax: "Отдых",
+  hotels: "Отели",
+  sights: "Места",
+  partners: "Партнеры",
+  faq: "FAQ",
+  support: "Поддержка",
 };
 
-const pages = Object.keys(labels) as Exclude<Page, "login" | "register" | "unauthorized" | "adminTours">[];
+const pages: Page[] = [
+  "home",
+  "travel",
+  "packages",
+  "relax",
+  "hotels",
+  "sights",
+  "partners",
+  "faq",
+  "support",
+];
 
 interface NavbarProps {
   page: Page;
   setPage: (p: Page) => void;
+  open: boolean;
+  setOpen: (v: boolean) => void;
 }
 
-export default function Navbar({ page, setPage }: NavbarProps) {
+export default function Navbar({ page, setPage, open, setOpen }: NavbarProps) {
   const { user, handleLogout } = useAuth();
 
+  function navigate(p: Page) {
+    setPage(p);
+    setOpen(false);
+  }
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [setOpen]);
+
   return (
-    <header className="fixed top-0 w-full backdrop-blur-xl bg-black/80 border-b border-zinc-800 z-50">
-      <nav className="w-full max-w-[1536px] mx-auto flex items-center justify-start gap-2 px-6 py-3 uppercase font-semibold select-none">
-        
-        <img 
-          src={logo} 
-          alt="Curated Compass Logo" 
-          className="h-15 w-auto object-contain cursor-pointer flex-shrink-0 " 
-          onClick={() => setPage("home")} 
+    <header className="fixed top-0 w-full z-50 backdrop-blur-xl bg-black/80 border-b border-zinc-800">
+      <nav className="max-w-[1536px] mx-auto flex items-center px-4 py-3 uppercase font-semibold">
+
+        <img
+          src={logo}
+          className="h-14 cursor-pointer"
+          onClick={() => navigate("home")}
         />
-        <div className="flex items-center justify-center pl-12 gap-1 whitespace-nowrap">
+
+        <div className="hidden xl:flex flex-1 justify-center gap-2">
           {pages.map((p) => (
             <button
               key={p}
-              onClick={() => setPage(p)}
-              className={`px-2.5 py-2 rounded-md transition text-base whitespace-nowrap tracking-wide ${
-                page === p ? "text-purple-400 bg-purple-500/10" : "hover:text-purple-400"
+              onClick={() => navigate(p)}
+              className={`px-2 py-1 ${
+                page === p ? "text-purple-400" : "text-gray-300"
               }`}
             >
               {labels[p]}
@@ -42,47 +75,41 @@ export default function Navbar({ page, setPage }: NavbarProps) {
           ))}
         </div>
 
-        <div className="flex items-center gap-2 border-l border-zinc-700 pl-4 flex-shrink-0 ml-12">
+        <div className="hidden xl:flex items-center gap-3 border-l pl-4 border-zinc-700">
+
           {user ? (
             <>
-              <span className="text-purple-400 text-base normal-case font-medium">👤 {user.username}</span>
-              <button
-                onClick={() => { handleLogout(); setPage("home"); }}
-                className="px-3 py-1.5 rounded-md text-base text-gray-400 hover:text-red-400 transition normal-case"
-              >
-                Выйти
-              </button>
-              {user?.role === "admin" && (
-                <button
-                  onClick={() => setPage("adminTours")}
-                  className="px-3 py-1.5 rounded-md text-base text-yellow-400 hover:bg-yellow-500/10"
-                >
+              <span className="text-purple-400">👤 {user.username}</span>
+
+              {user.role === "admin" && (
+                <button onClick={() => navigate("admin")} className="text-yellow-400">
                   Админка
                 </button>
               )}
+
+              <button
+                onClick={() => {
+                  handleLogout();
+                  navigate("home");
+                }}
+                className="text-red-400"
+              >
+                Выйти
+              </button>
             </>
           ) : (
             <>
-              <button
-                onClick={() => setPage("login")}
-                className={`px-3 py-1.5 rounded-md text-base transition normal-case ${
-                  page === "login" ? "text-purple-400 bg-purple-500/10" : "text-gray-400 hover:text-purple-400"
-                }`}
-              >
-                Войти
-              </button>
-              <button
-                onClick={() => setPage("register")}
-                className={`px-3 py-1.5 rounded-md text-base transition normal-case border border-purple-500/40 ${
-                  page === "register" ? "bg-purple-500/20 text-purple-400" : "text-purple-400 hover:bg-purple-500/10"
-                }`}
-              >
+              <button onClick={() => navigate("login")}>Войти</button>
+              <button onClick={() => navigate("register")} className="text-purple-400">
                 Регистрация
               </button>
             </>
           )}
         </div>
 
+        <button className="xl:hidden ml-auto" onClick={() => setOpen(true)}>
+          ☰
+        </button>
       </nav>
     </header>
   );

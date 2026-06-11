@@ -21,7 +21,31 @@ const StoreProductCard = memo(function StoreProductCard({ product, liked, onTogg
       <div className="grid grid-rows-[auto_auto_1fr_auto] gap-2 p-5">
         <div className="flex items-start justify-between gap-2">
           <h3 className="text-white font-semibold text-sm line-clamp-2">{product.title}</h3>
-          <span className="text-purple-400 font-bold shrink-0">${product.price}</span>
+          <div className="flex flex-col items-end shrink-0">
+  {product.discount ? (
+    <>
+      <span className="text-gray-500 line-through text-xs">
+        ${product.price}
+      </span>
+
+      <span className="text-purple-400 font-bold">
+        $
+        {(
+          product.price *
+          (1 - product.discount / 100)
+        ).toFixed(2)}
+      </span>
+
+      <span className="bg-red-500/20 text-red-400 text-[10px] px-2 py-0.5 rounded-full">
+        -{product.discount}%
+      </span>
+    </>
+  ) : (
+    <span className="text-purple-400 font-bold">
+      ${product.price}
+    </span>
+  )}
+</div>
         </div>
         <span className="text-xs text-zinc-500 border border-zinc-700 rounded-full px-2 py-0.5 w-fit">
           {product.category}

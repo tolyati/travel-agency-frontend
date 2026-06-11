@@ -1,57 +1,71 @@
 import { useState } from "react";
 import type { Item } from "../../data/products";
 import BookingWrapper from "./BookingWrapper";
+import PaymentMethod from "./PaymentMethod";
+import CardFields from "./CardFields";
 
-interface Props { item: Item; onClose: () => void; onConfirm: () => void; }
+interface Props {
+  item: Item;
+  onClose: () => void;
+  onConfirm: () => void;
+}
 
 export default function BookingFormHotel({ item, onClose, onConfirm }: Props) {
   const [name, setName] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(1);
+
+  const [payment, setPayment] = useState<"offline" | "online">("offline");
   const [submitted, setSubmitted] = useState(false);
 
-  const isValid = name.trim().length > 0 && checkIn.length > 0 && checkOut.length > 0 && checkOut > checkIn && guests >= 1;
+  const isValid = name && checkIn && checkOut && guests > 0;
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!isValid) return;
+
     setSubmitted(true);
-    setTimeout(() => { onConfirm(); onClose(); }, 1500);
+    setTimeout(() => {
+      onConfirm();
+      onClose();
+    }, 1200);
   }
 
-  const nights = checkIn && checkOut && checkOut > checkIn
-    ? Math.round((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / 86400000)
-    : 0;
-
   return (
-    <BookingWrapper item={item} title="🏨 Бронирование отеля" submitted={submitted} onClose={onClose}>
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <input type="text" placeholder="Ваше имя" value={name} onChange={(e) => setName(e.target.value)}
-          className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition" />
-        <div className="grid grid-cols-2 gap-3">
-          <div className="space-y-1">
-            <label className="text-gray-400 text-xs">Заезд</label>
-            <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} min={new Date().toISOString().split("T")[0]}
-              className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-purple-500 transition text-sm" />
-          </div>
-          <div className="space-y-1">
-            <label className="text-gray-400 text-xs">Выезд</label>
-            <input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} min={checkIn || new Date().toISOString().split("T")[0]}
-              className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-purple-500 transition text-sm" />
-          </div>
+    <BookingWrapper item={item} title="🏨 Отель" submitted={submitted} onClose={onClose}>
+      <form className="space-y-3" onSubmit={handleSubmit}>
+
+        <input
+          placeholder="Имя"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-white"
+        />
+
+        <div className="grid grid-cols-2 gap-2">
+          <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)}
+            className="bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-white" />
+
+          <input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)}
+            className="bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-white" />
         </div>
-        {nights > 0 && (
-          <p className="text-purple-400 text-xs text-center">{nights} ночей · итого ${(item.price * nights).toFixed(0)}</p>
-        )}
-        <div className="flex items-center gap-3">
-          <label className="text-gray-400 text-sm shrink-0">Гостей:</label>
-          <input type="number" min={1} max={10} value={guests} onChange={(e) => setGuests(Number(e.target.value))}
-            className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition" />
-        </div>
-        <button type="submit" disabled={!isValid}
-          className={`w-full py-3 rounded-xl font-semibold transition ${isValid ? "bg-purple-600 hover:bg-purple-500 text-white" : "bg-zinc-800 text-zinc-600 cursor-not-allowed"}`}>
-          Забронировать номер
+
+        <input
+          type="number"
+          value={guests}
+          onChange={(e) => setGuests(Number(e.target.value))}
+          className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-white"
+        />
+
+        <PaymentMethod method={payment} setMethod={setPayment} />
+        {payment === "online" && <CardFields />}
+
+        <button
+          className="w-full py-3 bg-purple-600 rounded-xl text-white"
+          disabled={!isValid}
+        >
+          Забронировать
         </button>
       </form>
     </BookingWrapper>

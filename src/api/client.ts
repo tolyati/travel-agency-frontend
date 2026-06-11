@@ -15,10 +15,22 @@ export async function apiRequest<T>(
     },
   });
 
-  if (!res.ok) {
-    const error = await res.text();
-    throw new Error(error || `Ошибка ${res.status}`);
+  // сначала читаем тело
+  const text = await res.text();
+
+  // 401 обрабатываем ДО throw
+  if (res.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    throw new Error("Unauthorized");
   }
 
-  return res.json() as Promise<T>;
+  if (!res.ok) {
+    throw new Error(text || `Ошибка ${res.status}`);
+  }
+
+  // если пустой ответ
+  if (!text) return {} as T;
+
+  return JSON.parse(text) as T;
 }

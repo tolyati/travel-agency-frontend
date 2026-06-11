@@ -6,6 +6,7 @@ export interface Item {
   description: string;
   img: string;
   price: number;
+  discount?: number;
   likes: number;
 }
 
@@ -18,6 +19,7 @@ export const tours: Item[] = [
     description: "Бамбуковый лес Арасияма и золотой павильон Кинкаку-дзи в сердце японских традиций.",
     img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e",
     price: 2500,
+    discount: 20,
     likes: 450
   },
   {
@@ -28,6 +30,7 @@ export const tours: Item[] = [
     description: "Завораживающая Флоренция и прогулки на гондолах по каналам Венеции.",
     img: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9",
     price: 1800,
+    discount: 15,
     likes: 520
   },
   {
@@ -38,6 +41,7 @@ export const tours: Item[] = [
     description: "Бирюзовые лагуны и величественные пирамиды Майя в древнем городе Чичен-Ица.",
     img: "https://cdn.coral.ru/content/img/mexico/cancun.jpg",
     price: 1600,
+    discount: 10,
     likes: 340
   },
   {
