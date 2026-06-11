@@ -9,6 +9,7 @@ import ProductList from "../components/ProductList";
 import Cart from "../components/Cart";
 import type { CartItem } from "../components/Cart";
 import Loading from "../components/Loading";
+import { safeLower } from "../utils/safe";
 
 const countries = [...new Set(hotels.map((h) => h.country))];
 
@@ -49,7 +50,7 @@ export default function Hotels({ setPage }: PageProps) {
   const filtered = useMemo(() => {
     if (activeCountry === null) return [];
     return hotels.filter((h) => {
-      const matchesSearch = h.name.toLowerCase().includes(search.trim().toLowerCase());
+      const matchesSearch = safeLower(h?.name).includes(search.trim().toLowerCase());
       const matchesCountry = activeCountry === "Все" || activeCountry === "Понравившиеся" || h.country === activeCountry;
       const matchesLiked = activeCountry === "Понравившиеся" ? likedIds.has(h.id) : true;
       return matchesSearch && matchesCountry && matchesLiked;

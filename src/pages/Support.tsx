@@ -43,8 +43,24 @@ export default function Support(_: PageProps) {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  function handleSubmit() {
+  if (!isValid) return;
+
+  setSubmitted(true);
+
+  setName("");
+  setEmail("");
+  setSubject("");
+  setMessage("");
+
+  setTimeout(() => {
+    setSubmitted(false);
+  }, 4000);
+}
 
   const isValid =
     name.trim().length > 0 &&
@@ -128,6 +144,7 @@ export default function Support(_: PageProps) {
           }`}>{message.length}/{MESSAGE_MAX}</p>
         </div>
         <button
+          onClick={handleSubmit}
           disabled={!isValid}
           className={`w-full py-3 rounded-xl font-semibold transition ${
             isValid
@@ -137,6 +154,11 @@ export default function Support(_: PageProps) {
         >
           Отправить сообщение
         </button>
+          {submitted && (
+          <div className="mt-4 p-3 rounded-xl bg-green-900/30 border border-green-500 text-green-300 text-sm text-center">
+            Ваше сообщение было успешно отправлено!
+          </div>
+        )}
       </div>
     </div>
   );
