@@ -2,7 +2,6 @@ import type { Item } from "../data/products";
 import BookingFormTour from "./booking/BookingFormTour";
 import BookingFormSalon from "./booking/BookingFormSalon";
 import BookingFormHotel from "./booking/BookingFormHotel";
-import BookingFormSight from "./booking/BookingFormSight";
 import BookingFormPackage from "./booking/BookingFormPackage";
 
 interface BookingFormProps {
@@ -18,7 +17,6 @@ export default function BookingForm({ item, onClose, onConfirm }: BookingFormPro
     case "tour":    return <BookingFormTour    {...props} />;
     case "salon":   return <BookingFormSalon   {...props} />;
     case "hotel":   return <BookingFormHotel   {...props} />;
-    case "sight":   return <BookingFormSight   {...props} />;
     case "package": return <BookingFormPackage {...props} />;
     default:        return <BookingFormTour    {...props} />;
   }

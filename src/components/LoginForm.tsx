@@ -1,75 +1,99 @@
 import { useState } from "react";
-import { login } from "../api/authApi";
+import { login, sendResetPassword } from "../api/authApi";
 import { useAuth } from "../hooks/useAuth";
 
-interface LoginFormProps {
-  onSuccess: () => void;
-  onGoToRegister?: () => void;
-}
-
-export default function LoginForm({ onSuccess, onGoToRegister }: LoginFormProps) {
+export default function LoginForm({ onSuccess }: any) {
   const { handleAuthSuccess } = useAuth();
+
   const [loginVal, setLoginVal] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
-  const isValid = loginVal.trim().length > 0 && password.length > 0;
+  const [forgotOpen, setForgotOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-    try {
-      const res = await login({ Login: loginVal.trim(), Password: password });
-      handleAuthSuccess(res);
-      onSuccess();
-    } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Ошибка входа");
-    } finally {
-      setLoading(false);
-    }
+  async function submit(e: React.FormEvent) {
+  e.preventDefault();
+
+  try {
+    const res = await login({
+      Login: loginVal,
+      Password: password,
+    });
+
+    handleAuthSuccess(res);
+    onSuccess?.();
+  } catch (err) {
+    console.error("LOGIN ERROR:", err);
+  }
+}
+
+  async function sendCode() {
+    await sendResetPassword(email);
+    setSent(true);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+  onSubmit={submit}
+  className="w-full max-w-md mx-auto bg-zinc-900/70 border border-zinc-800 rounded-2xl p-6 space-y-4"
+>
+
+      <h2 className="text-white text-xl text-center">Вход</h2>
+
       <input
-        type="text"
-        placeholder="Имя пользователя или email"
+        placeholder="Login or Email"
         value={loginVal}
         onChange={(e) => setLoginVal(e.target.value)}
-        className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition"
+        className="w-full p-3 rounded-xl bg-zinc-800 text-white"
       />
 
       <input
         type="password"
-        placeholder="Пароль"
+        placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition"
+        className="w-full p-3 rounded-xl bg-zinc-800 text-white"
       />
 
-      {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+      <button
+  type="submit"
+  className="w-full bg-purple-600 hover:bg-purple-500 p-3 rounded-xl text-white"
+>
+  Войти
+</button>
 
       <button
-        type="submit"
-        disabled={!isValid || loading}
-        className={`w-full py-3 rounded-xl font-semibold transition ${
-          isValid && !loading
-            ? "bg-purple-600 hover:bg-purple-500 text-white"
-            : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
-        }`}
+        type="button"
+        onClick={() => setForgotOpen(!forgotOpen)}
+        className="text-gray-400 text-sm w-full text-center"
       >
-        {loading ? "Вход..." : "Войти"}
+        Забыли пароль?
       </button>
 
-      {onGoToRegister && (
-        <p className="text-center text-gray-400 text-sm">
-          Нет аккаунта?{" "}
-          <button type="button" onClick={onGoToRegister} className="text-purple-400 hover:text-purple-300 transition">
-            Зарегистрироваться
+      {forgotOpen && (
+        <div className="space-y-3 pt-2">
+          <input
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 rounded-xl bg-zinc-800 text-white"
+          />
+
+          <button
+            type="button"
+            onClick={sendCode}
+            className="w-full bg-zinc-800 hover:bg-zinc-700 text-purple-400 p-3 rounded-xl"
+          >
+            Отправить код
           </button>
-        </p>
+
+          {sent && (
+            <p className="text-green-400 text-sm text-center">
+              Код отправлен
+            </p>
+          )}
+        </div>
       )}
     </form>
   );

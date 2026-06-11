@@ -8,6 +8,7 @@ export interface StoreProduct {
   category: string;
   image: string;
   rating: { rate: number; count: number };
+  discount?: number;
 }
 
 export default function useFetchProducts() {
@@ -21,7 +22,22 @@ export default function useFetchProducts() {
         if (!res.ok) throw new Error(`Ошибка сети: ${res.status} ${res.statusText}`);
         return res.json();
       })
-      .then((data: StoreProduct[]) => setProducts(data))
+      .then((data: StoreProduct[]) => {
+  const withDiscounts = data.map((p) => ({
+    ...p,
+
+    discount:
+      p.id === 1
+        ? 25
+        : p.id === 2
+        ? 15
+        : p.id === 3
+        ? 10
+        : undefined,
+  }));
+
+  setProducts(withDiscounts);
+})
       .catch((e: unknown) => setError(e instanceof Error ? e.message : "Неизвестная ошибка"))
       .finally(() => setLoading(false));
   }, []);
